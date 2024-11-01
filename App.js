@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Text, TextInput, Button, Card, Title } from 'react-native-paper';
-import { NlpManager } from '@nlpjs/basic';
+import { Text, TextInput, Button, Card, Title, IconButton } from 'react-native-paper';
+import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
+import { parseDate } from './dateParser'; // dateParser.js dosyasından fonksiyonu içe aktar
 
-// NLP Yöneticisini oluştur
-const manager = new NlpManager({ languages: ['tr'], forceNER: true });
+// Bildirim ayarlama fonksiyonu
+const scheduleNotification = async (task, date) => {
+  const secondsUntilTrigger = Math.max((date.getTime() - Date.now()) / 1000, 0); // Geçerli zaman ile hedef zaman arasındaki farkı saniye olarak hesapla
 
-// NLP Yöneticisini eğit
-manager.addDocument('tr', '2 gün sonra', 'date.future');
-manager.addDocument('tr', '3 gün sonra', 'date.future');
-manager.addDocument('tr', 'önümüzdeki hafta', 'date.future');
-// Daha fazla örnek ekleyerek eğitebiliriz
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: "Hatırlatma",
+      body: task,
+      sound: 'default', // Varsayılan bildirim sesi
+    },
+    trigger: {
+      seconds: secondsUntilTrigger, // Bildirimi belirtilen süre sonra tetikle
+    },
+  });
 
-manager.train();
-
-const parseTask = async (input) => {
-  const response = await manager.process('tr', input);
-  const dateEntity = response.entities.find((entity) => entity.entity === 'date');
-
-  if (dateEntity) {
-    return `${input} (Tarih: ${dateEntity.resolution.value})`;
-  }
-  return input;
+  console.log(`Bildirim ayarlandı, ${secondsUntilTrigger} saniye sonra çalacak.`);
 };
 
 export default function App() {
@@ -40,7 +39,16 @@ export default function App() {
         console.error('Verileri yüklerken hata:', error);
       }
     };
+
+    const requestPermissions = async () => {
+      const { status } = await Notifications.requestPermissionsAsync();
+      if (status !== 'granted') {
+        alert('Bildirim izni verilmedi!');
+      }
+    };
+
     loadTasks();
+    requestPermissions();
   }, []);
 
   const saveTasks = async (newTasks) => {
@@ -53,12 +61,24 @@ export default function App() {
 
   const addTask = async () => {
     if (task.trim()) {
-      const parsedTask = await parseTask(task);
-      const newTasks = [...tasks, parsedTask];
-      setTasks(newTasks);
-      setTask('');
-      saveTasks(newTasks);
+      const notificationDate = parseDate(task); // Türkçe karakterleri algılayan fonksiyon
+      console.log('Belirlenen tarih:', notificationDate); // API yanıtını kontrol et
+      if (notificationDate) {
+        const newTasks = [...tasks, `${task} (Tarih: ${notificationDate})`];
+        setTasks(newTasks);
+        setTask('');
+        saveTasks(newTasks);
+        await scheduleNotification(task, notificationDate); // Bildirim programla
+      } else {
+        alert('Geçersiz tarih veya zaman girdiniz.');
+      }
     }
+  };
+
+  const deleteTask = (index) => {
+    const newTasks = tasks.filter((_, i) => i !== index);
+    setTasks(newTasks);
+    saveTasks(newTasks);
   };
 
   return (
@@ -76,10 +96,18 @@ export default function App() {
       </Button>
       <FlatList
         data={tasks}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <Card style={styles.card}>
             <Card.Content>
-              <Text>{item}</Text>
+              <View style={styles.taskContainer}>
+                <Text>{item}</Text>
+                <IconButton
+                  icon="delete"
+                  color="red"
+                  size={20}
+                  onPress={() => deleteTask(index)}
+                />
+              </View>
             </Card.Content>
           </Card>
         )}
@@ -109,5 +137,10 @@ const styles = StyleSheet.create({
   card: {
     marginBottom: 10,
     backgroundColor: '#fff',
+  },
+  taskContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });
