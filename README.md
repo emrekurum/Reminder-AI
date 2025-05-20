@@ -41,7 +41,7 @@ Reminder-AI/
 
 ### Install & Run
 
-```bash
+
 git clone https://github.com/emrekurum/Reminder-AI.git
 cd Reminder-AI
 npm install  # or yarn install
@@ -52,7 +52,7 @@ Then open the app in the Expo Go app (on Android/iOS) or emulator.
 ✍️ Usage
 Type a task like Yarın 14:00 sunum hazırla.
 
-Press Ekle.
+
 
 If the date is valid, the app saves the task and schedules a notification.
 
@@ -82,9 +82,7 @@ Does not use a backend (offline only).
 Pull requests are welcome!
 To contribute:
 
-bash
-Kopyala
-Düzenle
+
 git checkout -b feature/your-feature
 git commit -m "Add new feature"
 git push origin feature/your-feature
