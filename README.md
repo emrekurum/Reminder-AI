@@ -1,16 +1,16 @@
-# Hatırlatma Uygulaması
+# Reminder Application
 
-AI destekli mobil hatırlatıcı uygulaması. Türkçe doğal dil işleme ile tarih ve zaman ifadelerini anlayarak hatırlatıcılar oluşturabilirsiniz.
+AI-powered mobile reminder application. Create reminders by understanding date and time expressions in Turkish using natural language processing.
 
-## Özellikler
+## Features
 
-- Türkçe doğal dil ifadeleri ile hatırlatıcı oluşturma
-- Yerel bildirim desteği
-- AsyncStorage ile veri kalıcılığı
-- Clean Architecture prensipleri ile geliştirilmiş mimari
-- React Native Paper ile modern UI
+- Create reminders using Turkish natural language expressions
+- Local notification support
+- Data persistence with AsyncStorage
+- Clean Architecture principles
+- Modern UI with React Native Paper
 
-## Teknolojiler
+## Technologies
 
 - React Native
 - Expo
@@ -18,45 +18,45 @@ AI destekli mobil hatırlatıcı uygulaması. Türkçe doğal dil işleme ile ta
 - Expo Notifications
 - React Native Paper
 
-## Kurulum
+## Installation
 
-### Gereksinimler
+### Requirements
 
-- Node.js (v14 veya üzeri)
-- npm veya yarn
+- Node.js (v14 or higher)
+- npm or yarn
 - Expo CLI
 
-### Adımlar
+### Steps
 
-1. Projeyi klonlayın:
+1. Clone the repository:
 ```bash
 git clone https://github.com/emrekurum/Reminder-AI.git
 cd HatirlatmaUygulamasi
 ```
 
-2. Bağımlılıkları yükleyin:
+2. Install dependencies:
 ```bash
 npm install
 ```
 
-3. Uygulamayı başlatın:
+3. Start the application:
 ```bash
 npm start
 ```
 
-## Kullanım
+## Usage
 
-Uygulama başlatıldıktan sonra, hatırlatıcı eklemek için doğal dil ifadeleri kullanabilirsiniz:
+After starting the application, you can use natural language expressions to add reminders:
 
-- "2 saat sonra"
-- "3 gün sonra"
-- "1 hafta sonra"
-- "2 ay sonra"
-- "30 dakika sonra"
+- "2 saat sonra" (2 hours later)
+- "3 gün sonra" (3 days later)
+- "1 hafta sonra" (1 week later)
+- "2 ay sonra" (2 months later)
+- "30 dakika sonra" (30 minutes later)
 
-## Proje Yapısı
+## Project Structure
 
-Proje Clean Architecture prensipleri ile organize edilmiştir:
+The project is organized following Clean Architecture principles:
 
 ```
 src/
@@ -77,6 +77,6 @@ src/
     └── notifications/# Notification services
 ```
 
-## Lisans
+## License
 
-Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için LICENSE dosyasına bakın.
+This project is licensed under the MIT License. See the LICENSE file for details.
