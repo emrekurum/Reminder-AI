@@ -30,7 +30,7 @@ AI destekli mobil hatırlatıcı uygulaması. Türkçe doğal dil işleme ile ta
 
 1. Projeyi klonlayın:
 ```bash
-git clone <repository-url>
+git clone https://github.com/emrekurum/Reminder-AI.git
 cd HatirlatmaUygulamasi
 ```
 
