@@ -77,6 +77,26 @@ src/
     └── notifications/# Notification services
 ```
 
-## License
+## Legal Notice / Yasal Uyarı
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+**English:**
+
+The source code of this project is made publicly available solely for review and educational purposes.
+
+⚠️ Cannot be copied, distributed, or used for commercial purposes.
+
+If you wish to use or license this project commercially, please contact me: [emrekurum07@hotmail.com]
+
+© 2026 Emre KURUM. All Rights Reserved.
+
+---
+
+**Türkçe:**
+
+Bu projenin kaynak kodu yalnızca inceleme ve eğitim amaçlı olarak kamuya açık hale getirilmiştir.
+
+⚠️ Ticari amaçlarla kopyalanamaz, dağıtılamaz veya kullanılamaz.
+
+Bu projeyi ticari olarak kullanmak veya lisanslamak isterseniz, lütfen benimle iletişime geçin: [emrekurum07@hotmail.com]
+
+© 2026 Emre KURUM. Tüm Hakları Saklıdır.
